@@ -39,13 +39,22 @@ public class Tracker extends Thread {
 		while (true) {
 			if (Thread.currentThread().isInterrupted() || stop) {
 				logger.debug("Tracker stopping");
+				System.out.println("Tracker stopping");
 				break;
 			}
 
 			List<User> users = tourGuideService.getAllUsers();
+			System.out.println("users size is " + users.size());
 			logger.debug("Begin Tracker. Tracking " + users.size() + " users.");
 			stopWatch.start();
-			users.forEach(u -> tourGuideService.trackUserLocation(u));
+			users.forEach(u -> {
+				try {
+					tourGuideService.trackUserLocation(u).join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 			stopWatch.stop();
 			logger.debug("Tracker Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds.");
 			stopWatch.reset();
