@@ -31,10 +31,9 @@ jobs:
       run: mvn install:install-file -Dfile="TourGuide/libs/gpsUtil" -DgroupId="gpsUtil" -DartifactId="gpsUtil" -Dversion="1.0.0" -f TourGuide/pom.xml
     - name: maven install RewardCentral
       run: mvn install:install-file -Dfile="TourGuide/libs/RewardCentral" -DgroupId="RewardCentral" -DartifactId="RewardCentral" -Dversion="1.0.0" -f TourGuide/pom.xml
-    - name: mvn install:install-file -Dfile="TourGuide/libs/RewardCentral" -DgroupId="RewardCentral" -DartifactId="RewardCentral" -Dversion="1.0.0" -f TourGuide/pom.xml
+    - name: mvn install TripPricer
+      run: mvn install:install-file -Dfile="TourGuide/libs/TripPricer" -DgroupId="TripPricer" -DartifactId="TripPricer" -Dversion="1.0.0" -f TourGuide/pom.xml
     - name: Build with Maven
       run: mvn -B package --file TourGuide/pom.xml
-    - name: mvn istall TripPricer
-      run: mvn install:install-file -Dfile="TourGuide/libs/TripPricer" -DgroupId="TripPricer" -DartifactId="TripPricer" -Dversion="1.0.0" -f TourGuide/pom.xml
     - name: test
       run: mvn test
