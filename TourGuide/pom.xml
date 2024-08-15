@@ -83,50 +83,7 @@
 			  </plugins>
 		</pluginManagement>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>3.1.2</version>
-				<configuration>
-					<groupId>RewardCentral</groupId>
-					<artifactId>RewardCentral</artifactId>
-					<version>1.0.0</version>
-					<packaging>jar</packaging>
-					<file>${project.basedir}/libs/RewardCentral.jar</file>
-					<generatePom>true</generatePom>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install-jar-lib</id>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<phase>validate</phase>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>3.1.2</version>
-				<configuration>
-					<groupId>TripPricer</groupId>
-					<artifactId>TripPricer</artifactId>
-					<version>1.0.0</version>
-					<packaging>jar</packaging>
-					<file>${project.basedir}/libs/TripPricer.jar</file>
-					<generatePom>true</generatePom>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install-jar-lib</id>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<phase>validate</phase>
-					</execution>
-				</executions>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
