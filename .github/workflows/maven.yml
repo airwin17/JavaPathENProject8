@@ -28,11 +28,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: maven install gps
-      run: mvn install:install-file -Dfile="TourGuide/libs/gpsUtil" -DgroupId="gpsUtil" -DartifactId="gpsUtil" -Dversion="1.0.0" -f TourGuide/pom.xml -Dpackaging=jar
+      run: mvn install:install-file -Dfile="/libs/gpsUtil" -DgroupId="gpsUtil" -DartifactId="gpsUtil" -Dversion="1.0.0" -f TourGuide/pom.xml -Dpackaging=jar
     - name: maven install RewardCentral
-      run: mvn install:install-file -Dfile="TourGuide/libs/RewardCentral" -DgroupId="RewardCentral" -DartifactId="RewardCentral" -Dversion="1.0.0" -f TourGuide/pom.xml -Dpackaging=jar
+      run: mvn install:install-file -Dfile="/libs/RewardCentral" -DgroupId="RewardCentral" -DartifactId="RewardCentral" -Dversion="1.0.0" -f TourGuide/pom.xml -Dpackaging=jar
     - name: mvn install TripPricer
-      run: mvn install:install-file -Dfile="TourGuide/libs/TripPricer" -DgroupId="TripPricer" -DartifactId="TripPricer" -Dversion="1.0.0" -f TourGuide/pom.xml -Dpackaging=jar
+      run: mvn install:install-file -Dfile="/libs/TripPricer" -DgroupId="TripPricer" -DartifactId="TripPricer" -Dversion="1.0.0" -f TourGuide/pom.xml -Dpackaging=jar
     - name: Build with Maven
       run: mvn -B package --file TourGuide/pom.xml
     - name: test
