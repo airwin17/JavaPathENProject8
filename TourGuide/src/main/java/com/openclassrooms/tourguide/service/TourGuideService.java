@@ -2,7 +2,6 @@ package com.openclassrooms.tourguide.service;
 
 import com.openclassrooms.tourguide.dto.NearAttractionDto;
 import com.openclassrooms.tourguide.helper.InternalTestHelper;
-import com.openclassrooms.tourguide.helper.ThreadContainer;
 import com.openclassrooms.tourguide.helper.VisitedLocationContainer;
 import com.openclassrooms.tourguide.tracker.Tracker;
 import com.openclassrooms.tourguide.user.User;
