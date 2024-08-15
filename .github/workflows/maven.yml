@@ -36,4 +36,4 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file TourGuide/pom.xml
     - name: test
-      run: mvn test
+      run: mvn test --file TourGuide/pom.xml
