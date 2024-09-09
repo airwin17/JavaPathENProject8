@@ -20,8 +20,6 @@ import tripPricer.Provider;
 
 @RestController
 public class TourGuideController {
-
-	
 	private TourGuideService tourGuideService;
      public TourGuideController(TourGuideService tourGuideService) {
          this.tourGuideService = tourGuideService;
@@ -35,16 +33,6 @@ public class TourGuideController {
     public VisitedLocation getLocation(@RequestParam String userName) throws InterruptedException, ExecutionException {
     	return tourGuideService.getUserLocation(getUser(userName));
     }
-    
-    //  TODO: Change this method to no longer return a List of Attractions.
- 	//  Instead: Get the closest five tourist attractions to the user - no matter how far away they are. ->done
- 	//  Return a new JSON object that contains:
-    	// Name of Tourist attraction, 
-        // Tourist attractions lat/long, 
-        // The user's location lat/long, 
-        // The distance in miles between the user's location and each of the attractions.
-        // The reward points for visiting each Attraction.
-        //    Note: Attraction reward points can be gathered from RewardsCentral
     @RequestMapping("/getNearbyAttractions") 
     public NearAttractionDto[] getNearbyAttractions(@RequestParam String userName) throws InterruptedException, ExecutionException {
     	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));

@@ -14,7 +14,7 @@ import com.openclassrooms.tourguide.user.UserReward;
 public class RewardsService {
 	private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 
-	// proximity in miles
+	// definition of proximity buffer in miles
 	private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
 	private int attractionProximityRange = 200;
@@ -35,11 +35,11 @@ public class RewardsService {
 	public void setDefaultProximityBuffer() {
 		proximityBuffer = defaultProximityBuffer;
 	}
-
+	//calculates rewards for given user from all visited locations
+	
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<Attraction> attractions = gpsUtil.getAttractions();
-		//System.out.println("456");
 		for (int i = 0; i < userLocations.size(); i++) {
 			for (int j = 0; j < attractions.size(); j++) {
 				Attraction attraction = attractions.get(j);
@@ -50,23 +50,24 @@ public class RewardsService {
 			}
 		}
 	}
-
+	//calculates rewards for given user from all visited locations in a separate thread
 	public Thread calculateRewardsThread(User user) {
 		return new Thread(() -> calculateRewards(user));
 	}
 
+	//check if user is within attraction proximity
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
 		return getDistance(attraction, location) > attractionProximityRange ? false : true;
 	}
-
+	//check if user is near attraction
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
-
+	//get reward points for attraction
 	private int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
-
+	//calculate distance between 2 locations in miles
 	public double getDistance(Location loc1, Location loc2) {
 		double lat1 = Math.toRadians(loc1.latitude);
 		double lon1 = Math.toRadians(loc1.longitude);
