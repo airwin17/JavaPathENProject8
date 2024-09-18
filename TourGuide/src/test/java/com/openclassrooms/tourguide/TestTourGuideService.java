@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,6 @@ import rewardCentral.RewardCentral;
 
 import com.openclassrooms.tourguide.dto.NearAttractionDto;
 import com.openclassrooms.tourguide.helper.InternalTestHelper;
-import com.openclassrooms.tourguide.helper.VisitedLocationContainer;
 import com.openclassrooms.tourguide.service.RewardsService;
 import com.openclassrooms.tourguide.service.TourGuideService;
 import com.openclassrooms.tourguide.user.User;
@@ -32,9 +32,9 @@ public class TestTourGuideService {
 
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		
-		VisitedLocationContainer u=tourGuideService.trackUserLocation(user);
-		u.run();
-		VisitedLocation visitedLocation =u.getValue() ;
+		CompletableFuture<VisitedLocation> u=tourGuideService.trackUserLocation(user);
+		
+		VisitedLocation visitedLocation =u.get() ;
 		tourGuideService.tracker.stopTracking();
 		assertTrue(visitedLocation.userId.equals(user.getUserId()));
 	}
@@ -90,10 +90,8 @@ public class TestTourGuideService {
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		VisitedLocationContainer u=tourGuideService.trackUserLocation(user);
-		u.run();
-		VisitedLocation visitedLocation =u.getValue() ;
-
+		CompletableFuture<VisitedLocation> u=tourGuideService.trackUserLocation(user);
+		VisitedLocation visitedLocation =u.get();
 		tourGuideService.tracker.stopTracking();
 
 		assertEquals(user.getUserId(), visitedLocation.userId);
@@ -107,11 +105,9 @@ public class TestTourGuideService {
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		VisitedLocationContainer u=tourGuideService.trackUserLocation(user);
-		u.run();
-		VisitedLocation visitedLocation =u.getValue() ;
-		NearAttractionDto[] nearByAttractions = tourGuideService.getNearByAttractions(visitedLocation);
-		assertEquals(5, nearByAttractions.length);
+		CompletableFuture<VisitedLocation> u=tourGuideService.trackUserLocation(user);
+		CompletableFuture<NearAttractionDto[]> nearByAttractions = tourGuideService.getNearByAttractions(u);
+		assertEquals(5, nearByAttractions.get().length);
 		tourGuideService.tracker.stopTracking();
 	}
 
