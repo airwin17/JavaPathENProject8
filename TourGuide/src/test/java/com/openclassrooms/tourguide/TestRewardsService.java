@@ -37,7 +37,7 @@ public class TestRewardsService {
 		
 		CompletableFuture<VisitedLocation> visitedLocationContainer = tourGuideService.trackUserLocation(user);
 		visitedLocationContainer.get();
-		
+		Thread.sleep(2000);
 		Map<String,UserReward> userRewards = user.getUserRewards();
 		tourGuideService.tracker.stopTracking();
 		assertTrue(userRewards.size() == 1);
